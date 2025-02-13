@@ -50,9 +50,11 @@ _show_used_version() {
 _set_default_kubectl() {
   local args=$1
   mkdir -p "$HOME/.local/bin"
+  if [ -h "$HOME/.local/bin/kubectl" ]; then
+    rm "$HOME/.local/bin/kubectl"
+  fi
   ln -s "$cache_path/kubectl_$args" "$HOME/.local/bin/kubectl"
-
-  echo "creando archivo"
+  echo "kubectl version: $args"
   echo "$args" > $HOME/.kubevm 
 }
 
